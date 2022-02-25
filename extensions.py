@@ -28,9 +28,11 @@ class CurConverter:
         try:
             amount = float(amount)
         except ValueError:
-            raise APIException(f'Правильно введите число: "{amount}", дробь разделяйте "точкой".')
+            raise APIException(
+                f'Правильно введите число: "{amount}", дробь разделяйте "точкой".')
 
-        r = requests.get(f'https://min-api.cryptocompare.com/data/price?fsym={base_ticker}&tsyms={quote_ticker}')
+        r = requests.get(
+            f'https://min-api.cryptocompare.com/data/price?fsym={base_ticker}&tsyms={quote_ticker}')
         total_base = json.loads(r.content)[keys[quote]]
 
         return total_base

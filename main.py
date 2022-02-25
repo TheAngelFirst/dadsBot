@@ -28,14 +28,16 @@ def convert(message: telebot.types.Message):
         values = message.text.split(' ')
 
         if len(values) != 3:
-            raise APIException('Параметров должно быть три, и они должны быть разделены пробелом!')
+            raise APIException(
+                'Параметров должно быть три, и они должны быть разделены пробелом!')
 
         base, quote, amount = values
         base = base.lower()  # доработал регистр ввода наименования валют
         quote = quote.lower()  # то же самое
         total_base = CurConverter.get_price(base, quote, amount)
         amount = float(amount)
-        price = round(total_base * amount, 2)  # Округление выводимой суммы до 2х знаков после точки
+        # Округление выводимой суммы до 2х знаков после точки
+        price = round(total_base * amount, 2)
 
     except APIException as e:
         bot.reply_to(message, f'Ошибка!\n{e}')
